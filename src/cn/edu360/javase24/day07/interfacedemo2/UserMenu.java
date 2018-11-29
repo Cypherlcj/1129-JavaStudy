@@ -21,7 +21,9 @@ public class UserMenu {
      public static void main(String[] args) {
 		Scanner sc=new Scanner(System.in);
 		//
-		UserManage userManage=null;
+		UserServiceManage userServiceManage=new UserServiceManageImpl() ;
+			boolean flag=true;
+		while(flag=true) {	 
 		
 		System.out.println("1.µÇÂ¼;2.×¢²á");
 		String nextLine=sc.nextLine();
@@ -32,7 +34,7 @@ public class UserMenu {
 			System.out.println("ÇëÊäÈëÃÜÂë:");
 			String pwd=sc.nextLine();
 			//
-			boolean login=UserManage.login(username,pwd);
+			boolean login=userServiceManage.login(username,pwd);
 			if(login) {
 				System.out.println("¹§Ï²Äú£¬µÇÂ¼³É¹¦");
 			}else {
@@ -44,10 +46,12 @@ public class UserMenu {
 			System.out.println("ÇëÊäÈëÓÃ»§Ãû£º");
 			String name=sc.nextLine();
 			System.out.println("ÇëÊäÈëÃÜÂë£º");
-			String psw=sc.nextLine();
+			String pwd1=sc.nextLine();
+			System.out.println("ÇëÔÙ´ÎÊäÈëÃÜÂë");
+			String pwd2=sc.nextLine();
 			
 			//
-			String res=userManage.regist(name,pwd1,pwd2);
+			String res=userServiceManage.regist(name,pwd1,pwd2);
 			//System.out.println(res);
 			switch (res) {
 			case "1":
@@ -62,13 +66,19 @@ public class UserMenu {
 			default:
 				break;
 			}
+			break;
+			
+		case "quit":
+			System.out.println("bye......");
+			flag = false;
+			break;			
 			 
 	}
 }
 
 }
 
-
+}
 
 
 

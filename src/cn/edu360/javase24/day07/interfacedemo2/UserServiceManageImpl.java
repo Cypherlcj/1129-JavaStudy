@@ -15,8 +15,9 @@ package cn.edu360.javase24.day07.interfacedemo2;
  * @date:   2018年11月29日 上午7:34:37   
  *     
  */
-public class UserManageImpl implements UserManage{
-
+public class UserServiceManageImpl implements UserServiceManage {
+	
+	   UserDao userDao=new UserDaoImpl();
 	/**   
 	 * <p>Title: login</p>   
 	 * <p>Description: 调用DAO层的功能区查询该用户名是否存在</p>   
@@ -28,8 +29,17 @@ public class UserManageImpl implements UserManage{
 	@Override
 	public boolean login(String name, String pwd) {
 		// TODO Auto-generated method stub
-		UserDao userDao=null;
-		User user=userDao.findUserB
+	
+		User user=userDao.findUserByName(name);
+		if(user==null) {
+			return false;
+		} 
+			if(user.getPassword().equals(pwd)) {
+				return true;
+			}
+			return false;
+		 
+		
 	}
 
 	/**   
@@ -42,9 +52,39 @@ public class UserManageImpl implements UserManage{
 	 * @see cn.edu360.javase24.day07.interfacedemo2.UserManage#regist(java.lang.String, java.lang.String, java.lang.String)   
 	 */
 	@Override
-	public String regist(String name, String pwd1, String pwd2) {
+	public String regist(String userName, String pwd1, String pwd2) {
 		// TODO Auto-generated method stub
-		return null;
+		//检查两次密码是否一致，如果不一致，直接返回1
+		if(!pwd1.equals(pwd2)) {
+			return "1";
+		}
+		//调dao层的功能区建成该用户名是否存在
+		boolean ifExist=userDao.checkUserIsExist(userName);
+		
+		//如果用户已经存在，返回2
+		if(ifExist) {
+		return "2";
 	}
-  
+   //
+		User user=new User();
+        user.setUserName(userName);
+        user.setPassword(pwd1);
+        userDao.addUser(user);
+        return "3";
 }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -15,7 +15,7 @@ package cn.edu360.javase24.day07.interfacedemo2;
  * @date:   2018年11月29日 上午7:20:06   
  *     
  */
-public interface UserManage {
+public interface UserServiceManage {
       public boolean login(String name,String pwd);
       public String regist(String name,String pwd1,String pwd2 );
 }
